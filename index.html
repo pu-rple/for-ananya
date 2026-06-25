@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖 For Ananya</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      height: 100vh; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hearts-bg {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .heart-float {
+      position: absolute; font-size: 20px;
+      animation: floatUp linear infinite; opacity: 0.3;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+    .card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,107,157,0.3);
+      border-radius: 30px; padding: 3rem 2.5rem;
+      text-align: center; max-width: 500px; width: 90%;
+      box-shadow: 0 0 60px rgba(255,107,157,0.1);
+    }
+    .big-heart {
+      font-size: 5rem;
+      animation: heartbeat 1.4s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.3); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.3); }
+      70% { transform: scale(1); }
+    }
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #ff6b9d, #ff4757);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.2rem;
+    }
+    .question {
+      font-size: 1.5rem; color: #ffb8c6; margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .buttons {
+      display: flex; gap: 3rem; justify-content: center; align-items: center;
+      position: relative; min-height: 100px; margin-top: 1rem;
+    }
+    .btn-yes {
+      background: linear-gradient(135deg, #ff6b9d, #ff4757);
+      border: none; color: #fff; font-size: 1.3rem;
+      padding: 0.8rem 2.5rem; border-radius: 50px; cursor: pointer;
+      font-weight: 600; transition: all 0.3s;
+      position: relative; z-index: 5;
+    }
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 30px rgba(255,71,87,0.5);
+    }
+    .btn-no {
+      background: transparent; border: 2px solid rgba(255,107,157,0.4);
+      color: #ff6b9d; font-size: 1.3rem;
+      padding: 0.8rem 2.5rem; border-radius: 50px; cursor: pointer;
+      font-weight: 600; transition: all 0.1s;
+      position: fixed; z-index: 10;
+      top: 80%; left: 80%;
+    }
+    @media (max-width: 500px) {
+      .card { padding: 2rem 1.5rem; }
+      h1 { font-size: 2rem; }
+      .question { font-size: 1.2rem; }
+      .buttons { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="card">
+    <div class="big-heart">💖</div>
+    <h1>Love you Ananya</h1>
+    <p class="question">Will you love me?</p>
+    <div class="buttons" id="btnArea">
+      <button class="btn-yes" onclick="sayYes()">Yes 💕</button>
+      <button class="btn-no" id="noBtn">No</button>
+    </div>
+  </div>
+
+  <script>
+    function createHearts() {
+      const container = document.getElementById('heartsBg');
+      const emojis = ['💖', '💗', '💕', '❤️', '🌸', '✨'];
+      for (let i = 0; i < 35; i++) {
+        const el = document.createElement('div');
+        el.className = 'heart-float';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = Math.random() * 100 + '%';
+        el.style.fontSize = (14 + Math.random() * 24) + 'px';
+        el.style.animationDuration = (8 + Math.random() * 12) + 's';
+        el.style.animationDelay = (Math.random() * 15) + 's';
+        container.appendChild(el);
+      }
+    }
+    createHearts();
+
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.querySelector('.btn-yes');
+
+    // Set initial position away from Yes button
+    function setInitialNoPosition() {
+      const noW = noBtn.offsetWidth || 120;
+      const noH = noBtn.offsetHeight || 50;
+      noBtn.style.left = (window.innerWidth - noW - 40) + 'px';
+      noBtn.style.top = (window.innerHeight - noH - 40) + 'px';
+    }
+    setInitialNoPosition();
+    window.addEventListener('resize', setInitialNoPosition);
+
+    function moveNoAway() {
+      const noW = noBtn.offsetWidth;
+      const noH = noBtn.offsetHeight;
+      const yesRect = yesBtn.getBoundingClientRect();
+
+      const maxX = window.innerWidth - noW - 10;
+      const maxY = window.innerHeight - noH - 10;
+
+      let newX, newY;
+      let tries = 0;
+      do {
+        newX = Math.max(0, Math.min(maxX, Math.random() * maxX));
+        newY = Math.max(0, Math.min(maxY, Math.random() * maxY));
+        tries++;
+      } while (
+        newX < yesRect.right &&
+        newX + noW > yesRect.left &&
+        newY < yesRect.bottom &&
+        newY + noH > yesRect.top &&
+        tries < 50
+      );
+
+      noBtn.style.left = newX + 'px';
+      noBtn.style.top = newY + 'px';
+    }
+
+    noBtn.addEventListener('mouseover', moveNoAway);
+    noBtn.addEventListener('click', moveNoAway);
+
+    function sayYes() {
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+</html>
