@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎁 Surprise - For Ananya</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e; color: #fff;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .back-link {
+      position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2;
+      color: #ff6b9d; text-decoration: none; font-size: 1.1rem;
+      background: rgba(255,107,157,0.1); padding: 0.6rem 1.2rem;
+      border-radius: 30px; border: 1px solid rgba(255,107,157,0.3);
+      transition: all 0.3s;
+    }
+    .back-link:hover { background: rgba(255,107,157,0.25); }
+    h2 { font-size: 2.8rem; color: #ff6b9d; margin-bottom: 0.8rem; }
+    .subhead { color: #ffb8c6; margin-bottom: 2rem; }
+    .surprise-btn {
+      background: linear-gradient(135deg, #ff6b9d, #ff4757);
+      border: none; color: #fff; font-size: 1.3rem;
+      padding: 1rem 3rem; border-radius: 50px; cursor: pointer;
+      transition: all 0.3s; font-weight: 600;
+    }
+    .surprise-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255,71,87,0.4);
+    }
+    .surprise-box {
+      margin-top: 2.5rem; min-height: 150px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .surprise-box .big-emoji { font-size: 5rem; margin-bottom: 1rem; }
+    .surprise-box .msg { font-size: 1.3rem; color: #ffb8c6; max-width: 400px; line-height: 1.7; }
+    .nav-links {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .nav-links a {
+      color: #ffb8c6; text-decoration: none; padding: 0.5rem 1.2rem;
+      border-radius: 20px; border: 1px solid rgba(255,107,157,0.2);
+      transition: all 0.3s; font-size: 0.95rem;
+    }
+    .nav-links a:hover { background: rgba(255,107,157,0.15); }
+    @media (max-width: 500px) {
+      h2 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="home.html">← Home</a>
+
+  <h2>🎁 A Little Surprise</h2>
+  <p class="subhead">Tap the button and see what happens!</p>
+
+  <button class="surprise-btn" onclick="showSurprise()">Click Me 💖</button>
+
+  <div class="surprise-box" id="surpriseBox"></div>
+
+  <div class="nav-links">
+    <a href="home.html">🏠 Home</a>
+    <a href="letter.html">💌 Letter</a>
+    <a href="games.html">🎮 Games</a>
+  </div>
+
+  <script>
+    const surprises = [
+      { emoji: '🌟', text: 'You are a star! Never forget that.' },
+      { emoji: '🌈', text: 'You bring color to my world.' },
+      { emoji: '🦋', text: 'You have the most beautiful soul.' },
+      { emoji: '🌺', text: 'You bloom in every season.' },
+      { emoji: '☀️', text: 'You are sunshine in human form.' },
+      { emoji: '🎵', text: 'You are the song I never want to stop hearing.' },
+      { emoji: '🌙', text: 'Even the moon wishes it could shine as bright as you.' },
+    ];
+    let surpriseIndex = 0;
+    function showSurprise() {
+      const box = document.getElementById('surpriseBox');
+      const s = surprises[surpriseIndex % surprises.length];
+      box.innerHTML = `<div class="big-emoji">${s.emoji}</div><div class="msg">${s.text}</div>`;
+      surpriseIndex++;
+    }
+  </script>
+</body>
+</html>
