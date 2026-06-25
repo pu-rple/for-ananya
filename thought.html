@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ A Thought - For Ananya</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e; color: #fff;
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    .back-link {
+      position: fixed; top: 1.5rem; left: 1.5rem; z-index: 2;
+      color: #ff6b9d; text-decoration: none; font-size: 1.1rem;
+      background: rgba(255,107,157,0.1); padding: 0.6rem 1.2rem;
+      border-radius: 30px; border: 1px solid rgba(255,107,157,0.3);
+      transition: all 0.3s;
+    }
+    .back-link:hover { background: rgba(255,107,157,0.25); }
+    h2 { font-size: 2.8rem; color: #ff6b9d; margin-bottom: 0.5rem; }
+    .big-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .quote-box {
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 2.5rem;
+      max-width: 600px; border: 1px solid rgba(255,107,157,0.3);
+    }
+    .quote-text {
+      font-size: 1.5rem; line-height: 1.9; color: #ffb8c6;
+      font-style: italic;
+    }
+    .refresh-btn {
+      margin-top: 1.5rem;
+      background: transparent; border: 1px solid rgba(255,107,157,0.4);
+      color: #ff6b9d; padding: 0.6rem 1.5rem; border-radius: 30px;
+      cursor: pointer; font-size: 1rem; transition: all 0.3s;
+    }
+    .refresh-btn:hover { background: rgba(255,107,157,0.15); }
+    .nav-links {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .nav-links a {
+      color: #ffb8c6; text-decoration: none; padding: 0.5rem 1.2rem;
+      border-radius: 20px; border: 1px solid rgba(255,107,157,0.2);
+      transition: all 0.3s; font-size: 0.95rem;
+    }
+    .nav-links a:hover { background: rgba(255,107,157,0.15); }
+    @media (max-width: 500px) {
+      h2 { font-size: 2rem; }
+      .quote-text { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="home.html">← Home</a>
+
+  <h2>✨ Today's Thought</h2>
+  <p class="big-icon">🌅</p>
+
+  <div class="quote-box">
+    <div class="quote-text" id="quoteDisplay"></div>
+    <button class="refresh-btn" onclick="newQuote()">💫 Another one</button>
+  </div>
+
+  <div class="nav-links">
+    <a href="home.html">🏠 Home</a>
+    <a href="letter.html">💌 Letter</a>
+    <a href="surprise.html">🎁 Surprise</a>
+    <a href="games.html">🎮 Games</a>
+  </div>
+
+  <script>
+    const quotes = [
+      "Some people make the world brighter just by being in it. You're one of them.",
+      "In a world of billions, you're the rarest kind of wonderful.",
+      "You don't need to be perfect to be precious — and you are both.",
+      "Every day is better because you exist.",
+      "You are proof that good things come in the most beautiful packages.",
+      "The world is luckier than it knows to have you in it.",
+      "You are not just a chapter in my story — you're a whole beautiful book.",
+      "Some hearts understand each other without a single word. Yours is one of them."
+    ];
+    function newQuote() {
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById('quoteDisplay').textContent = '"' + q + '" 💕';
+    }
+    newQuote();
+  </script>
+</body>
+</html>
