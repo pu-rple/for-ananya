@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Games - For Ananya</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e; color: #fff;
+      min-height: 100vh; padding: 1.5rem;
+    }
+    .back-link {
+      position: fixed; top: 1.5rem; left: 1.5rem; z-index: 10;
+      color: #ff6b9d; text-decoration: none; font-size: 1.1rem;
+      background: rgba(255,107,157,0.1); padding: 0.6rem 1.2rem;
+      border-radius: 30px; border: 1px solid rgba(255,107,157,0.3);
+      transition: all 0.3s;
+    }
+    .back-link:hover { background: rgba(255,107,157,0.25); }
+    h2 { text-align: center; font-size: 2.5rem; color: #ff6b9d; margin-bottom: 0.3rem; }
+    .subhead { text-align: center; color: #ffb8c6; margin-bottom: 1.5rem; }
+
+    /* Game tabs */
+    .game-tabs {
+      display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .game-tab {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,107,157,0.3);
+      color: #fff; padding: 0.7rem 1.8rem; border-radius: 30px;
+      cursor: pointer; font-size: 1rem; transition: all 0.3s;
+    }
+    .game-tab:hover { background: rgba(255,107,157,0.15); }
+    .game-tab.active {
+      background: linear-gradient(135deg, #ff6b9d, #ff4757);
+      border-color: transparent;
+    }
+
+    .game-container {
+      max-width: 700px; margin: 0 auto;
+      background: rgba(255,255,255,0.04);
+      border-radius: 24px; padding: 1.5rem;
+      border: 1px solid rgba(255,107,157,0.15);
+      min-height: 500px;
+    }
+
+    .game { display: none; }
+    .game.active { display: block; }
+
+    /* ===== GAME 1: Catch Hearts ===== */
+    #catchArea {
+      width: 100%; height: 420px; background: rgba(255,255,255,0.03);
+      border-radius: 16px; position: relative; overflow: hidden;
+      border: 1px solid rgba(255,107,157,0.1);
+    }
+    .catch-heart {
+      position: absolute; font-size: 28px; cursor: default;
+      animation: heartFall linear forwards;
+      user-select: none;
+    }
+    @keyframes heartFall {
+      0% { transform: translateY(-40px) scale(1); opacity: 1; }
+      100% { transform: translateY(420px) scale(0.6); opacity: 0.4; }
+    }
+    .basket {
+      position: absolute; bottom: 10px; font-size: 40px;
+      user-select: none; transition: left 0.08s;
+    }
+    .score-display {
+      text-align: center; margin-bottom: 1rem; font-size: 1.2rem;
+    }
+    .score-display span { color: #ff6b9d; font-weight: bold; }
+    .start-btn {
+      background: linear-gradient(135deg, #ff6b9d, #ff4757);
+      border: none; color: #fff; padding: 0.6rem 2rem;
+      border-radius: 30px; cursor: pointer; font-size: 1rem;
+      font-weight: 600; margin-left: 1rem; transition: all 0.3s;
+    }
+    .start-btn:hover { transform: scale(1.05); }
+
+    /* ===== GAME 2: Memory Match ===== */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px; max-width: 400px; margin: 1rem auto;
+    }
+    .memory-card {
+      aspect-ratio: 1; background: rgba(255,107,157,0.15);
+      border: 1px solid rgba(255,107,157,0.3);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; font-size: 2rem; cursor: pointer;
+      transition: all 0.3s; user-select: none;
+    }
+    .memory-card.flipped { background: rgba(255,255,255,0.08); }
+    .memory-card.matched { background: rgba(255,107,157,0.08); opacity: 0.5; cursor: default; }
+    .memory-card:hover { border-color: #ff6b9d; }
+    .memory-info {
+      text-align: center; margin-bottom: 1rem; font-size: 1.1rem;
+    }
+    .memory-info span { color: #ff6b9d; font-weight: bold; }
+
+    /* ===== GAME 3: Pop Hearts ===== */
+    #popArea {
+      width: 100%; height: 400px; background: rgba(255,255,255,0.03);
+      border-radius: 16px; position: relative; overflow: hidden;
+      border: 1px solid rgba(255,107,157,0.1); cursor: pointer;
+    }
+    .pop-heart {
+      position: absolute; font-size: 36px; cursor: pointer;
+      animation: popFade 0.8s ease forwards; user-select: none;
+    }
+    @keyframes popFade {
+      0% { transform: scale(0); opacity: 1; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .pop-score {
+      text-align: center; margin-bottom: 1rem; font-size: 1.2rem;
+    }
+    .pop-score span { color: #ff6b9d; font-weight: bold; }
+
+    .nav-links {
+      margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .nav-links a {
+      color: #ffb8c6; text-decoration: none; padding: 0.5rem 1.2rem;
+      border-radius: 20px; border: 1px solid rgba(255,107,157,0.2);
+      transition: all 0.3s; font-size: 0.95rem;
+    }
+    .nav-links a:hover { background: rgba(255,107,157,0.15); }
+
+    @media (max-width: 500px) {
+      h2 { font-size: 2rem; }
+      .memory-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="home.html">← Home</a>
+
+  <h2>🎮 Mini Games</h2>
+  <p class="subhead">Pick a game and have fun! 💕</p>
+
+  <div class="game-tabs">
+    <div class="game-tab active" onclick="switchGame('catch', this)">💖 Catch Hearts</div>
+    <div class="game-tab" onclick="switchGame('memory', this)">🧠 Memory Match</div>
+    <div class="game-tab" onclick="switchGame('pop', this)">👆 Pop Hearts</div>
+  </div>
+
+  <div class="game-container">
+    <!-- GAME 1: Catch Hearts -->
+    <div class="game active" id="gameCatch">
+      <div class="score-display">Hearts caught: <span id="catchScore">0</span></div>
+      <div id="catchArea">
+        <div class="basket" id="basket">🧺</div>
+      </div>
+    </div>
+
+    <!-- GAME 2: Memory Match -->
+    <div class="game" id="gameMemory">
+      <div class="memory-info">Moves: <span id="moves">0</span> | Pairs: <span id="pairs">0</span>/6</div>
+      <div class="memory-grid" id="memoryGrid"></div>
+      <div style="text-align:center;margin-top:0.8rem;">
+        <button class="start-btn" onclick="initMemory()">🔄 New Game</button>
+      </div>
+    </div>
+
+    <!-- GAME 3: Pop Hearts -->
+    <div class="game" id="gamePop">
+      <div class="pop-score">Hearts popped: <span id="popScore">0</span></div>
+      <div id="popArea"></div>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <a href="home.html">🏠 Home</a>
+    <a href="letter.html">💌 Letter</a>
+    <a href="surprise.html">🎁 Surprise</a>
+    <a href="thought.html">✨ Thought</a>
+  </div>
+
+  <script>
+    // ========== TAB SWITCHING ==========
+    function switchGame(name, tab) {
+      document.querySelectorAll('.game').forEach(g => g.classList.remove('active'));
+      document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('game' + name.charAt(0).toUpperCase() + name.slice(1)).classList.add('active');
+      tab.classList.add('active');
+    }
+
+    // ========== GAME 1: CATCH HEARTS ==========
+    const catchArea = document.getElementById('catchArea');
+    let catchScore = 0;
+    let spawnInterval;
+    let catchRunning = false;
+
+    document.addEventListener('mousemove', function(e) {
+      if (!catchRunning) return;
+      const rect = catchArea.getBoundingClientRect();
+      const b = document.getElementById('basket');
+      if (!b) return;
+      let x = e.clientX - rect.left - 25;
+      x = Math.max(0, Math.min(rect.width - 50, x));
+      b.style.left = x + 'px';
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      if (!catchRunning) return;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const rect = catchArea.getBoundingClientRect();
+      const b = document.getElementById('basket');
+      if (!b) return;
+      let x = touch.clientX - rect.left - 25;
+      x = Math.max(0, Math.min(rect.width - 50, x));
+      b.style.left = x + 'px';
+    });
+
+    function spawnHeart() {
+      if (!catchRunning) return;
+      const heart = document.createElement('div');
+      heart.className = 'catch-heart';
+      heart.textContent = ['💖','💗','💕','❤️'][Math.floor(Math.random()*4)];
+      heart.style.left = Math.random() * (catchArea.offsetWidth - 40) + 'px';
+      heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+      heart.dataset.caught = 'false';
+      catchArea.appendChild(heart);
+
+      heart.addEventListener('animationend', () => heart.remove());
+
+      const checkInterval = setInterval(() => {
+        if (!catchRunning || !heart.parentElement) { clearInterval(checkInterval); return; }
+        const hRect = heart.getBoundingClientRect();
+        const b = document.getElementById('basket');
+        if (!b) { clearInterval(checkInterval); return; }
+        const bRect = b.getBoundingClientRect();
+        if (
+          hRect.bottom >= bRect.top && hRect.top <= bRect.bottom &&
+          hRect.right >= bRect.left && hRect.left <= bRect.right &&
+          heart.dataset.caught === 'false'
+        ) {
+          heart.dataset.caught = 'true';
+          catchScore++;
+          document.getElementById('catchScore').textContent = catchScore;
+          heart.style.opacity = '0';
+          heart.style.transition = '0.2s';
+          setTimeout(() => heart.remove(), 200);
+          clearInterval(checkInterval);
+        }
+      }, 100);
+    }
+
+    function startCatch() {
+      if (catchRunning) return;
+      catchRunning = true;
+      catchScore = 0;
+      document.getElementById('catchScore').textContent = '0';
+      const existing = document.getElementById('basket');
+      if (!existing) {
+        catchArea.innerHTML = '<div class="basket" id="basket">🧺</div>';
+      }
+      spawnInterval = setInterval(spawnHeart, 800);
+    }
+
+    function stopCatch() {
+      catchRunning = false;
+      clearInterval(spawnInterval);
+    }
+
+    const catchObserver = new MutationObserver(() => {
+      const game = document.getElementById('gameCatch');
+      if (game.classList.contains('active') && !catchRunning) {
+        startCatch();
+      } else if (!game.classList.contains('active') && catchRunning) {
+        stopCatch();
+      }
+    });
+    document.querySelectorAll('.game-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const name = tab.textContent.trim().toLowerCase();
+        if (!name.includes('catch')) stopCatch();
+      });
+    });
+
+    // ========== GAME 2: MEMORY MATCH ==========
+    const emojis = ['💖','💗','💕','❤️','🌸','🌺'];
+    let cards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let lockBoard = false;
+
+    function initMemory() {
+      const grid = document.getElementById('memoryGrid');
+      grid.innerHTML = '';
+      flippedCards = [];
+      matchedPairs = 0;
+      moves = 0;
+      lockBoard = false;
+      document.getElementById('moves').textContent = '0';
+      document.getElementById('pairs').textContent = '0';
+
+      cards = [...emojis, ...emojis];
+      for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cards[i], cards[j]] = [cards[j], cards[i]];
+      }
+
+      cards.forEach((emoji, idx) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.index = idx;
+        card.dataset.emoji = emoji;
+        card.textContent = '?';
+        card.addEventListener('click', () => flipCard(card));
+        grid.appendChild(card);
+      });
+    }
+
+    function flipCard(card) {
+      if (lockBoard || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      card.classList.add('flipped');
+      card.textContent = card.dataset.emoji;
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        moves++;
+        document.getElementById('moves').textContent = moves;
+        lockBoard = true;
+        if (flippedCards[0].dataset.emoji === flippedCards[1].dataset.emoji) {
+          flippedCards.forEach(c => {
+            c.classList.add('matched');
+            c.classList.remove('flipped');
+          });
+          matchedPairs++;
+          document.getElementById('pairs').textContent = matchedPairs;
+          flippedCards = [];
+          lockBoard = false;
+          if (matchedPairs === emojis.length) {
+            setTimeout(() => alert('🎉 You matched all pairs! You\'re amazing! 💕'), 300);
+          }
+        } else {
+          setTimeout(() => {
+            flippedCards.forEach(c => {
+              c.classList.remove('flipped');
+              c.textContent = '?';
+            });
+            flippedCards = [];
+            lockBoard = false;
+          }, 800);
+        }
+      }
+    }
+
+    initMemory();
+
+    // ========== GAME 3: POP HEARTS ==========
+    const popArea = document.getElementById('popArea');
+    let popScore = 0;
+    let popInterval;
+
+    function spawnPopHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'pop-heart';
+      heart.textContent = ['💖','💗','💕','❤️','🌸','✨'][Math.floor(Math.random()*6)];
+      heart.style.left = Math.random() * (popArea.offsetWidth - 50) + 'px';
+      heart.style.top = Math.random() * (popArea.offsetHeight - 50) + 'px';
+      heart.style.animationDuration = '0.8s';
+      popArea.appendChild(heart);
+
+      heart.addEventListener('click', function(e) {
+        popScore++;
+        document.getElementById('popScore').textContent = popScore;
+        this.remove();
+        e.stopPropagation();
+      });
+
+      setTimeout(() => { if (heart.parentElement) heart.remove(); }, 900);
+    }
+
+    function startPop() {
+      popScore = 0;
+      document.getElementById('popScore').textContent = '0';
+      popArea.innerHTML = '';
+      clearInterval(popInterval);
+      popInterval = setInterval(spawnPopHeart, 1500);
+    }
+
+    function stopPop() {
+      clearInterval(popInterval);
+    }
+
+    // Auto-start games when tab is shown
+    const originalSwitch = switchGame;
+    switchGame = function(name, tab) {
+      originalSwitch(name, tab);
+      if (name === 'catch') startCatch();
+      else if (name === 'pop') startPop();
+      else stopCatch();
+    };
+
+    startCatch();
+  </script>
+</body>
+</html>
